@@ -24,9 +24,8 @@ public class MaterialDTO {
     }
 
     public MaterialDTO(Material entity) {
-
-        this.id = id;
-        this.name = name;
+        this.id = entity.getId();
+        this.name = entity.getName();
     }
 
     public Material toEntity() {
