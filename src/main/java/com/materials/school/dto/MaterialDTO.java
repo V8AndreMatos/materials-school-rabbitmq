@@ -4,13 +4,13 @@ import com.materials.school.entity.Material;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
-@Schema(description = "Object representing a Material School")
+@Schema(description = "DTO representing a school material")
 public class MaterialDTO {
 
     @Schema(description = "ID of the material", example = "1")
     private Long id;
 
-    @NotBlank(message = "{material.name.required}")
+    @NotBlank(message = "material.name.required")
     @Schema(description = "Name of the material", example = "English")
     private String name;
 
