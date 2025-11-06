@@ -14,7 +14,7 @@ public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Schema(description = "User full name", example = "Geography")
     @NotBlank(message = "name is required")
@@ -24,16 +24,16 @@ public class Material {
 
     }
 
-    public Material(Integer id, String name) {
+    public Material(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
