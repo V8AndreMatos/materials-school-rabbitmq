@@ -26,7 +26,7 @@ public class MaterialService {
                 .collect(Collectors.toList());
     }
 
-    // Find Material by ID
+    // Find Material By ID
     public MaterialDTO findById(Long id) {
         Material material = materialRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ID " +id+ " Not Found"));
         return new MaterialDTO(material);
@@ -49,6 +49,7 @@ public class MaterialService {
         return new MaterialDTO(material);
     }
 
+    // Delete Material By ID
     public void deleteById(Long id){
 
         if (!materialRepository.existsById(id)) {
