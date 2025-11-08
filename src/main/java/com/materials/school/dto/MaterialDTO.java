@@ -4,8 +4,10 @@ import com.materials.school.entity.Material;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
+import java.io.Serializable;
+
 @Schema(description = "DTO representing a school material")
-public class MaterialDTO {
+public class MaterialDTO implements Serializable {
 
     @Schema(description = "ID of the material", example = "1")
     private Long id;

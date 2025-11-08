@@ -1,17 +1,27 @@
+version: '3.8'
 services:
   mysql:
-    image: 'mysql:latest'
+    image: mysql:latest
+    container_name: mysql_container
     environment:
-      - 'MYSQL_DATABASE=rabiitdatabase'
-      - 'MYSQL_PASSWORD=dodgedart79'
-      - 'MYSQL_ROOT_PASSWORD=dodgedart79'
-      - 'MYSQL_USER=root'
+      MYSQL_DATABASE: rabbitdatabase
+      MYSQL_USER: root
+      MYSQL_PASSWORD: dodgedart79
+      MYSQL_ROOT_PASSWORD: dodgedart79
     ports:
-      - '3306'
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
   rabbitmq:
-    image: 'rabbitmq:latest'
+    image: rabbitmq:3-management
+    container_name: rabbitmq_container
     environment:
-      - 'RABBITMQ_DEFAULT_PASS=secret'
-      - 'RABBITMQ_DEFAULT_USER=myuser'
+      RABBITMQ_DEFAULT_USER: myuser
+      RABBITMQ_DEFAULT_PASS: secret
     ports:
-      - '5672'
+      - "5672:5672"     # Porta para comunicação com a aplicação
+      - "15672:15672"   # Interface web de gerenciamento
+
+volumes:
+  mysql_data:

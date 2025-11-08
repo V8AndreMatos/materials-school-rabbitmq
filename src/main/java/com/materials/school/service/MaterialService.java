@@ -3,8 +3,11 @@ package com.materials.school.service;
 import com.materials.school.dto.MaterialDTO;
 import com.materials.school.entity.Material;
 import com.materials.school.exception.ResourceNotFoundException;
+import com.materials.school.messaging.MaterialProducer;
 import com.materials.school.repository.MaterialRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +16,12 @@ import java.util.stream.Collectors;
 public class MaterialService {
 
     private final MaterialRepository materialRepository;
+    private final MaterialProducer materialProducer;
 
-    public MaterialService(MaterialRepository materialRepository) {
+    public MaterialService(MaterialRepository materialRepository, MaterialProducer materialProducer) {
         this.materialRepository = materialRepository;
-   }
+        this.materialProducer = materialProducer;
+    }
 
     // Find All Materials
     public List<MaterialDTO> findAll(){
@@ -36,6 +41,10 @@ public class MaterialService {
     public MaterialDTO create(MaterialDTO materialDTO){
         Material entity = materialDTO.toEntity();
         entity = materialRepository.save(entity);
+
+        // Envia a mensagem para a fila após salvar
+        materialProducer.sendMaterial(new MaterialDTO(entity));
+
         return new MaterialDTO(entity);
     }
 
@@ -58,5 +67,10 @@ public class MaterialService {
         materialRepository.deleteById(id);
 
     }
+
+    public List<Material> findAllRaw() {
+        return materialRepository.findAll();
+    }
+
 
 }

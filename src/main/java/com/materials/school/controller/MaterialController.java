@@ -1,6 +1,8 @@
 package com.materials.school.controller;
 
 import com.materials.school.dto.MaterialDTO;
+import com.materials.school.entity.Material;
+import com.materials.school.repository.MaterialRepository;
 import com.materials.school.service.MaterialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -113,4 +115,13 @@ public class MaterialController {
         materialService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/debug/raw")
+    public ResponseEntity<List<Material>> debugRaw() {
+        List<Material> materials = materialService.findAllRaw();
+        materials.forEach(m -> System.out.println("Material encontrado: " + m.getId() + " - " + m.getName()));
+        return ResponseEntity.ok(materials);
+    }
+
+
 }

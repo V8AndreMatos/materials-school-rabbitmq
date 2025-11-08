@@ -17,5 +17,6 @@ public class MaterialProducer {
     public void sendMaterial(MaterialDTO materialDTO) {
         rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE, materialDTO);
     }
+
 }
 
