@@ -3,10 +3,12 @@ package com.materials.school.dto;
 import com.materials.school.entity.Material;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
-@Schema(description = "DTO representing a school material")
+@Schema(description = "DTO representing a school material", requiredProperties = {"name"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MaterialDTO implements Serializable {
 
     @Schema(description = "ID of the material", example = "1")

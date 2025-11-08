@@ -16,7 +16,7 @@ public class Material {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Schema(description = "User full name", example = "Geography")
+    @Schema(description = "Name of the school material", example = "Geography")
     @NotBlank(message = "name is required")
     private String name;
 

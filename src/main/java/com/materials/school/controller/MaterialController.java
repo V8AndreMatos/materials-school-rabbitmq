@@ -88,7 +88,7 @@ public class MaterialController {
                     )
             ),
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Material updated successfully"),
+                    @ApiResponse(responseCode = "200", description = "Material updated successfully"),
                     @ApiResponse(responseCode = "404", description = "Material not found")
             }
     )
