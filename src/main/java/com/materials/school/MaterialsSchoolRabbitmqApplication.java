@@ -14,8 +14,6 @@ public class MaterialsSchoolRabbitmqApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MaterialsSchoolRabbitmqApplication.class, args);
 
-
-
 	}
 
 }
