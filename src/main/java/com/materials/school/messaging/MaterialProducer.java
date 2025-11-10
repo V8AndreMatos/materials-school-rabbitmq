@@ -15,8 +15,13 @@ public class MaterialProducer {
     }
 
     public void sendMaterial(MaterialDTO materialDTO) {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE, materialDTO);
+        System.out.println("📤 Enviando para RabbitMQ: " + materialDTO);
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE,
+                RabbitMQConfig.ROUTING_KEY,
+                materialDTO
+        );
     }
-
 }
+
 

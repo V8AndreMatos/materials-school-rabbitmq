@@ -5,9 +5,7 @@ import com.materials.school.entity.Material;
 import com.materials.school.exception.ResourceNotFoundException;
 import com.materials.school.messaging.MaterialProducer;
 import com.materials.school.repository.MaterialRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

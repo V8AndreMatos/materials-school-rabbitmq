@@ -1,0 +1,62 @@
+{
+  "rabbit_version": "3.11",
+  "users": [
+    {
+      "name": "myuser",
+      "password": "secret",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    { "name": "/" }
+  ],
+  "permissions": [
+    {
+      "user": "myuser",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "material.exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true
+    }
+  ],
+  "queues": [
+    {
+      "name": "material.queue",
+      "vhost": "/",
+      "durable": true,
+      "arguments": {
+        "x-dead-letter-exchange": "material.exchange",
+        "x-dead-letter-routing-key": "dlq"
+      }
+    },
+    {
+      "name": "material.dlq",
+      "vhost": "/",
+      "durable": true
+    }
+  ],
+  "bindings": [
+    {
+      "source": "material.exchange",
+      "vhost": "/",
+      "destination": "material.queue",
+      "destination_type": "queue",
+      "routing_key": "material.routingkey"
+    },
+    {
+      "source": "material.exchange",
+      "vhost": "/",
+      "destination": "material.dlq",
+      "destination_type": "queue",
+      "routing_key": "dlq"
+    }
+  ]
+}

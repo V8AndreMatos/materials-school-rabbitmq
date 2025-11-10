@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
-@Schema(description = "DTO representing a school material", requiredProperties = {"name"})
+@Schema(description = "DTO representing a school subjects", requiredProperties = {"name"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MaterialDTO implements Serializable {
 
@@ -36,9 +36,9 @@ public class MaterialDTO implements Serializable {
         Material material = new Material();
         material.setId(this.id);
         material.setName(this.name);
-
         return material;
     }
+
 
     public Long getId() {
         return id;

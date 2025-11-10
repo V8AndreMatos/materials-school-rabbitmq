@@ -2,7 +2,6 @@ package com.materials.school.controller;
 
 import com.materials.school.dto.MaterialDTO;
 import com.materials.school.entity.Material;
-import com.materials.school.repository.MaterialRepository;
 import com.materials.school.service.MaterialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,7 +37,7 @@ public class MaterialController {
 
     @Operation(
             summary = "Search material by ID",
-            description = "Returns data for a specific user",
+            description = "Returns ID for a specific subject ",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Material found successfully"),
                     @ApiResponse(responseCode = "404", description = "Material not found")
@@ -64,7 +63,7 @@ public class MaterialController {
                     )
             ),
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Material created successfully"),
+                    @ApiResponse(responseCode = "201", description = "Material created successfully"),
                     @ApiResponse(responseCode = "400", description = "Invalid input")
             }
     )

@@ -18,8 +18,14 @@ public class MaterialConsumer {
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE)
     public void receiveMaterial(MaterialDTO materialDTO) {
-        Material entity = materialDTO.toEntity();
-        materialRepository.save(entity);
-        System.out.println("✅ Material salvo com sucesso: " + entity.getName());
+        try {
+            Material entity = materialDTO.toEntity();
+            materialRepository.save(entity);
+            System.out.println("✅ Material salvo com sucesso: " + entity.getName());
+        } catch (Exception e) {
+            System.err.println("❌ Erro ao processar mensagem: " + materialDTO);
+            throw e; // mensagem vai para a DLQ
+        }
     }
 }
+

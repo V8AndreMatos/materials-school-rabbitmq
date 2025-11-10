@@ -44,7 +44,7 @@ class MaterialServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("Musical Material", result.getName());
+        assertEquals("Musical Material ", result.getName());
         assertEquals(1L, result.getId());
 
         verify(materialRepository).save(any(Material.class));
@@ -68,7 +68,7 @@ class MaterialServiceTest {
         assertEquals("Physics Material", result.getName());
 
         verify(materialRepository).findById(id);
-        System.out.println("Material encontrado: " + result.getName());
+        System.out.println("Material encontrado : " + result.getName());
 
     }
 
@@ -84,7 +84,7 @@ class MaterialServiceTest {
                 () -> materialService.findById(id)
         );
 
-        assertEquals("ID 99 Not Found", exception.getMessage());
+        assertEquals("ID 99 Not Found ", exception.getMessage());
         verify(materialRepository).findById(id);
         System.out.println(exception.getMessage());
 
@@ -95,8 +95,8 @@ class MaterialServiceTest {
     void testUpdateMaterial_WhenExists() {
         // Arrange
         Long id = 1L;
-        Material existingMaterial = new Material(id, "Old Name");
-        Material updatedMaterial = new Material(id, "New Name");
+        Material existingMaterial = new Material(id, " Old Name");
+        Material updatedMaterial = new Material(id, " New Name");
 
         MaterialDTO updateDTO = new MaterialDTO();
         updateDTO.setName("New Name");
@@ -109,7 +109,7 @@ class MaterialServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("New Name", result.getName());
+        assertEquals("New Name ", result.getName());
         assertEquals(id, result.getId());
 
         verify(materialRepository).findById(id);
@@ -133,7 +133,7 @@ class MaterialServiceTest {
                 () -> materialService.update(id, updateDTO)
         );
 
-        assertEquals("Material with ID99 Not Found", exception.getMessage());
+        assertEquals("Material with ID99 Not Found ", exception.getMessage());
         verify(materialRepository).findById(id);
         System.out.println(exception.getMessage());
     }
@@ -168,7 +168,7 @@ class MaterialServiceTest {
                 () -> materialService.deleteById(id)
         );
 
-        assertEquals("Material with ID 99 not found", exception.getMessage());
+        assertEquals("Material with ID 99 not found ", exception.getMessage());
         verify(materialRepository).existsById(id);
         verify(materialRepository, never()).deleteById(anyLong());
         System.out.println(exception.getMessage());

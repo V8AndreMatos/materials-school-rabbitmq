@@ -1,7 +1,17 @@
-version: '3'
 services:
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: rabbitmq_container
+    environment:
+      RABBITMQ_DEFAULT_USER: myuser
+      RABBITMQ_DEFAULT_PASS: secret
+      RABBITMQ_LOAD_DEFINITIONS: /etc/rabbitmq/definitions.json
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5672:5672"     # Porta para comunicação com a aplicação
+      - "15672:15672"   # Interface web de gerenciamento
+    volumes:
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq_data:
