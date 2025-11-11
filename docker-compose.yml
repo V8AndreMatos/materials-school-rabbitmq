@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -13,5 +15,34 @@ services:
       - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
       - rabbitmq_data:/var/lib/rabbitmq
 
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: dodgedart79
+      MYSQL_DATABASE: rabbitdatabase
+    ports:
+      - "3311:3306"   # Porta exposta para a aplicação
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: materials_school_app
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/rabbitdatabase
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: dodgedart79
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: myuser
+      SPRING_RABBITMQ_PASSWORD: secret
+    ports:
+      - "8080:8080"
+
 volumes:
   rabbitmq_data:
+  mysql_data:

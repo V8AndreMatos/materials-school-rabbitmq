@@ -1,15 +1,28 @@
 version: '3.8'
 services:
+  app:
+    image: materials-app:test
+    container_name: materials_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/schooldb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+
   mysql:
     image: mysql:8.0
     container_name: mysql_container
     environment:
-      MYSQL_DATABASE: rabbitdatabase
-      MYSQL_ROOT_PASSWORD: dodgedart79
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: schooldb
     ports:
       - "3311:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -18,8 +31,5 @@ services:
       RABBITMQ_DEFAULT_USER: myuser
       RABBITMQ_DEFAULT_PASS: secret
     ports:
-      - "5672:5672"     # Porta para comunicação com a aplicação
-      - "15672:15672"   # Interface web de gerenciamento
-
-volumes:
-  mysql_data:
+      - "5672:5672"
+      - "15672:15672"

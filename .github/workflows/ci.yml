@@ -15,8 +15,8 @@ jobs:
           - 5672:5672
           - 15672:15672
         env:
-          RABBITMQ_DEFAULT_USER: myuser
-          RABBITMQ_DEFAULT_PASS: secret
+          RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_USER }}
+          RABBITMQ_DEFAULT_PASS: ${{ secrets.RABBITMQ_PASS }}
         options: >-
           --health-cmd "rabbitmq-diagnostics -q ping"
           --health-interval 10s
@@ -26,6 +26,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -34,3 +42,10 @@ jobs:
 
       - name: Build and Test
         run: mvn clean verify
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: target/surefire-reports
